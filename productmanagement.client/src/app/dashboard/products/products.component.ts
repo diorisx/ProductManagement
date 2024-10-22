@@ -1,36 +1,42 @@
 import { Component } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
 
-
-
-export interface PeriodicElement {
+export interface ProductModel {
+  id: number;
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  description: string; // Cambiado a string
+  price: number;
+  stock: number;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss',
-  
+  styleUrls: ['./products.component.scss'], // Corregido el nombre de la propiedad
 })
 export class ProductsComponent {
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['name', 'description', 'price', 'stock']; // Asegúrate de que el orden aquí coincide con tu HTML
+  productList: ProductModel[] = [];
 
+  constructor(private productService: ProductsService) {}
+
+  ngOnInit(): void {
+    this.GetProduct();
+  }
+
+  // Get single product
+  public GetProduct() {
+    this.productService.getProduct(1).subscribe({
+      next: (res) => {
+        // En lugar de usar push, puedes asignar directamente si obtienes un solo producto
+        this.productList = [res]; // Asignar como un nuevo array
+        console.log(this.productList);
+        this.productList = res;
+      },
+      error: (error) => {
+        console.log("Error getting product:", error);
+      }
+    });
+  }
 }

@@ -11,7 +11,7 @@ using ProductManagement.Server.Models;
 
 namespace ProductManagement.Server.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase

@@ -11,7 +11,6 @@ export class AuthService {
   
   // login
    login(email:string, password:string):Observable<any> {
-    //const headers = {"Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSIsImp0aSI6IjU5ZjI0NzI4LWZiMzUtNDc5NS1hN2MyLTgxYjJjNWEzZjAxZiIsIklkIjoiNCIsIlJvbGUiOiJ1c2VyIiwiZXhwIjoxNzI5NTY4ODY1LCJpc3MiOiJleGFtcGxlLmNvbSIsImF1ZCI6ImxvY2FsaG9zdCJ9.VVs9nKQnaP9zUrsTVHwFaDmNhnzSgxOuLAWVA-3IZ9Y"};
     return this.http.post(this.API_URL,{email,password});
   }
 
