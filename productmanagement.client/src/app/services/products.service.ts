@@ -12,7 +12,7 @@ export class ProductsService {
   constructor(private http:HttpClient) { }
   
   // get single product
-   getProduct(id:number):Observable<any> {
+   getProducts():Observable<any> {
     return this.http.get(this.API_URL+"/");
   }
 

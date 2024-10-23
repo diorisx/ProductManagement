@@ -4,9 +4,9 @@ import { ProductsService } from '../../services/products.service';
 export interface ProductModel {
   id: number;
   name: string;
-  description: string; // Cambiado a string
+  // description: string; // Cambiado a string
   price: number;
-  stock: number;
+  // stock: number;
 }
 
 @Component({
@@ -16,7 +16,7 @@ export interface ProductModel {
 })
 export class ProductsComponent {
   
-  displayedColumns: string[] = ['name', 'description', 'price', 'stock']; // Asegúrate de que el orden aquí coincide con tu HTML
+  displayedColumns: string[] = ['name','price', 'stock','edit']; // Asegúrate de que el orden aquí coincide con tu HTML
   productList: ProductModel[] = [];
 
   constructor(private productService: ProductsService) {}
@@ -27,11 +27,11 @@ export class ProductsComponent {
 
   // Get single product
   public GetProduct() {
-    this.productService.getProduct(1).subscribe({
+    this.productService.getProducts().subscribe({
       next: (res) => {
         // En lugar de usar push, puedes asignar directamente si obtienes un solo producto
         this.productList = [res]; // Asignar como un nuevo array
-        console.log(this.productList);
+        //console.log(this.productList);
         this.productList = res;
       },
       error: (error) => {

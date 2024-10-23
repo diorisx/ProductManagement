@@ -20,20 +20,26 @@ import { TestComponent } from './test/test.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { EditProductComponent } from './dashboard/products/edit-product/edit-product.component';
+import { AddProductComponent } from './dashboard/products/add-product/add-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    DashboardComponent,
-    HomeComponent,
-    UsersComponent,
-    ProductsComponent,
-    TestComponent,
-    NavbarComponent
+    //LoginComponent,
+    //DashboardComponent,
+    //HomeComponent,
+    //UsersComponent,
+    //ProductsComponent,
+    //TestComponent,
+    NavbarComponent,
+    //EditProductComponent,
+    //AddProductComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule,FormsModule,AppMaterialModule,
+    BrowserModule, HttpClientModule,
+    FormsModule,
+    AppMaterialModule,
     AppRoutingModule,
   
   ],

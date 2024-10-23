@@ -15,7 +15,7 @@ interface WeatherForecast {
 })
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
-
+  showFiller = false;
   constructor(private http: HttpClient) {}
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 <!-- <p>dashboard works!</p> -->
 
-<mat-sidenav-container [autosize]="true">
+<!-- <mat-sidenav-container [autosize]="true">
 
     <mat-sidenav [opened]="true" mode="side" style="width: 15%;">
       <mat-nav-list>
@@ -27,37 +27,36 @@
 
       <router-outlet></router-outlet>
     </mat-sidenav-content>
-</mat-sidenav-container>
-
-
-
-<!-- <mat-sidenav-container autosize="true">
-	<mat-sidenav #sidenav  style="background-color: whitesmoke;" mode="side" opened="true"  style="width: 20%;">
-		<mat-nav-list>
-			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-				<span class="full-width" *ngIf="isExpanded || isShowing">Opciones</span>
-				<mat-icon mat-list-icon>home</mat-icon>
-				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
-			</mat-list-item>
-			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-				<a mat-list-item routerLink="/dashboard/products" routerLinkActive="selected no-border txt-bold" >Productos</a>
-				<a mat-list-item routerLink="/dashboard/users" routerLinkActive="selected no-border txt-bold">Usuarios</a>
-				<mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-					<span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
-				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-					<mat-list-item>SubSubmenu Item 1</mat-list-item>
-					<mat-list-item>SubSubmenu Item 2</mat-list-item>
-				</div>
-			</div>
-		</mat-nav-list>
-    <mat-nav-list>
-</mat-nav-list>
-	</mat-sidenav>
-
-    <mat-sidenav-content style="background: whitesmoke;">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-
 </mat-sidenav-container> -->
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard/home" routerLinkActive="selected no-border txt-bold">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a mat-list-item routerLink="/dashboard/products" routerLinkActive="selected no-border txt-bold">
+        <mat-icon>inventory_2</mat-icon>
+        Inventory
+      </a>
+      <a mat-list-item routerLink="/dashboard/users" routerLinkActive="selected no-border txt-bold">
+        <mat-icon>supervisor_account</mat-icon>
+        Users
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>app</span>
+    </mat-toolbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

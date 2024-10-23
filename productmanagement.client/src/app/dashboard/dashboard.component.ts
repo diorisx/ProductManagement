@@ -1,4 +1,3 @@
-
 import { Component, ViewChild } from '@angular/core';
 
 
@@ -9,10 +8,5 @@ import { Component, ViewChild } from '@angular/core';
 })
 export class DashboardComponent {
 
-  //@ViewChild('sidenav') sidenav: MatSidenav;
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-
+  showFiller = false;
 }
