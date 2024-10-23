@@ -2,7 +2,7 @@
 
 namespace ProductManagement.Server.Models
 {
-    public class LoginRequest
+    public class LoginRequestDto
     {
         [Required(ErrorMessage = "Insert an email")]
         [EmailAddress(ErrorMessage = "Please, insert a valid email")]

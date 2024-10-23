@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,12 +20,12 @@ namespace ProductManagement.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
 
-        public UsersController(AppDbContext context, IConfiguration config)
+        public AuthController(AppDbContext context, IConfiguration config)
         {
             _context = context;
             _config = config;
@@ -31,7 +33,7 @@ namespace ProductManagement.Server.Controllers
 
 
         [Authorize] // Protecting Endpoint
-        [HttpGet]
+        [HttpGet("GetUser")]
         public ActionResult<User> GetUser()
         {
             return Ok("This is just a simple GET");
@@ -60,7 +62,7 @@ namespace ProductManagement.Server.Controllers
 
         // POST: api/Users/LoginUser
         [HttpPost("Authenticate")]
-        public async Task<ActionResult<User>> Authenticate([FromBody] LoginRequest loginRequest)
+        public async Task<ActionResult<User>> Authenticate([FromBody] LoginRequestDto loginRequest)
         {
             var dataUser = await _context.Users.FirstOrDefaultAsync(p => loginRequest.Email == p.Email);
 
@@ -73,7 +75,6 @@ namespace ProductManagement.Server.Controllers
                 return Unauthorized(new { message = "Incorrect password"});
             }
             var token = GenerateJWT(dataUser);
-            //Response.Headers["Authorization"] = token;
 
             return Ok(new { 
                 token = token,
@@ -81,7 +82,22 @@ namespace ProductManagement.Server.Controllers
             });
         }
 
-      
+        [Authorize]
+        [HttpGet("RefreshToken")]
+        public async Task<ActionResult> RefreshToken() {
+            var userIdClaim = User.FindFirst("Id");
+            if (userIdClaim != null)
+            {
+                var userData = await _context.Users.FirstOrDefaultAsync(p => p.Id == int.Parse(userIdClaim.Value));
+                var token = GenerateJWT(userData);
+                return Ok(new {refreshToken = token});
+
+            }
+            return Unauthorized();
+
+        }
+
+
         // Generate Token 
         private string GenerateJWT(User user)
         {
