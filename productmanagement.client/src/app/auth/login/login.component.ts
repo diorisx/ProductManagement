@@ -20,7 +20,7 @@ export class LoginComponent {
         const token = response.token;
         this.authService.saveToken(response.token);
         this.router.navigate(['/dashboard']);
-        console.log(token);
+        //console.log(token);
       },
       error: (error)=>{
         console.log('Error on logging: ', error);

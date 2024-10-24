@@ -68,11 +68,11 @@ namespace ProductManagement.Server.Controllers
 
             if (dataUser == null)
             {
-                return NotFound(new {message = "User not found"});
+                return NotFound("User Not Found");
             }
             if (!BCrypt.Net.BCrypt.EnhancedVerify(loginRequest.Password, dataUser.Password))
             {
-                return Unauthorized(new { message = "Incorrect password"});
+                return NotFound("Incorrect Password");
             }
             var token = GenerateJWT(dataUser);
 
@@ -115,7 +115,7 @@ namespace ProductManagement.Server.Controllers
                 issuer:_config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims:claims,
-                expires: DateTime.Now.AddMinutes(120),
+                expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: credentials
                 );
 
