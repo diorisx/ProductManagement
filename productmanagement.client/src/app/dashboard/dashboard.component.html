@@ -1,39 +1,44 @@
+<mat-toolbar color="primary" class="navbar-color p-2">
+  <div class="pc-header">
+  <h5 class="logo-text">Market</h5>
+    <button mat-icon-button (click)="drawer.toggle()" color="primary" class="bg-azure-button menu-button-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <span class="spacer"></span>
+  <button mat-icon-button color="primary">
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-toolbar>
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer mode="side" opened>
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard/home" routerLinkActive="selected no-border txt-bold">
-        <mat-icon>dashboard</mat-icon>
-        Dashboard
+      <a mat-list-item routerLink="/dashboard/home" routerLinkActive="selected no-border txt-bold" class="nav-button-option">
+        <span class="icon-text">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/products" routerLinkActive="selected no-border txt-bold">
-        <mat-icon>inventory_2</mat-icon>
-        Inventory
+      <a mat-list-item routerLink="/dashboard/products" routerLinkActive="selected no-border txt-bold" class="nav-button-option">
+        <span class="icon-text">
+          <mat-icon>inventory_2</mat-icon>
+          Inventory
+        </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/users" routerLinkActive="selected no-border txt-bold">
-        <mat-icon>supervisor_account</mat-icon>
-        Users
-      </a>
+      <a mat-list-item routerLink="/dashboard/users" routerLinkActive="selected no-border txt-bold" class="nav-button-option">
+        <span class="icon-text">
+          <mat-icon>supervisor_account</mat-icon>
+            Users
+          </span>
+        </a>
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="drawer.toggle()" color="primary" class="bg-azure-button">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <!-- <span>app</span> -->
-
-      <span class="spacer"></span>
-
-      <button mat-icon-button color="primary">
-        <mat-icon>person</mat-icon>
-      </button>
-
-    
-    </mat-toolbar>
-
-    <div class="content">
+  <mat-sidenav-content class="custom-nav-content">
+    <div class="content" >
       <router-outlet></router-outlet>
     </div>
+    
   </mat-sidenav-content>
 </mat-sidenav-container>

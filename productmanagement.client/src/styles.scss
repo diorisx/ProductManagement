@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-//@import 'node_modules/bootstrap/scss/functions';
+// @import 'node_modules/bootstrap/scss/functions';
 // @import 'node_modules/bootstrap/scss/variables';
 // @import 'node_modules/bootstrap/scss/variables-dark';
 
@@ -28,20 +28,29 @@
 // @import 'scss/themes/customizer';
 // @import 'scss/style-preset.scss';
 
-// fonts
-//@import url('scss/fonts/berry/berry-icons.css'); /** custom font icons - berry **/
-//@import 'scss/fonts/tabler-icons.min.css';
-//@import 'scss/fonts/phosphor/duotone/style.css';
-//@import 'scss/settings/bootstrap-variables.scss';
 
+// @import 'scss/settings/bootstrap-variables.scss';
+
+
+@font-face {
+  font-family: 'berry';
+  src: url('scss/fonts/berry/fonts/pct.woff');
+}
 $border-gray: #8080804d;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } 
+.custom-nav-content {
+  background-color: #ECF0F4;
+  margin: 0px 10px 0px;
+    border-radius: 10px;
+}
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'berry', sans-serif;
   }
 
 
@@ -72,13 +81,22 @@ html, body {
 
 .selected {background-color: gainsboro;}
 
+
 mat-toolbar {
-  border-bottom: solid 2px #8080804d;
+ // border-bottom: solid 2px #8080804d;
 }
 mat-sidenav {
-  border-right: solid 2px $border-gray !important;
+  //border-right: solid 2px $border-gray !important;
   padding: 5px 20px;
   border-radius: 0px !important;
 }
 
+* {
+  box-sizing: border-box;
+}
 
+// fonts
+/* @import url('scss/fonts/berry/berry-icons.css'); 
+@import 'scss/fonts/tabler-icons.min.css';
+@import 'scss/fonts/phosphor/duotone/style.css'; */
+/** custom font icons - berry **/

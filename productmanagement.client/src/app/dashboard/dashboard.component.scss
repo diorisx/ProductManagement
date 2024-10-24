@@ -1,6 +1,8 @@
 .sidenav-container {
-  height: 100vh; /* Asegura que ocupe toda la altura */
+  // height: 95vh;
+  // height: calc(100vh-70px); 
   display: flex;
+  // padding: 10px 0;
 }
 
 .spacer {
@@ -8,13 +10,18 @@
 }
 
 mat-sidenav {
-  
-  width: 250px; /* Cambia el ancho según sea necesario */
+  width: 250px; 
+  position: fixed;
+  margin-top: 55px;
+  // height: calc(100vh - 70px);
 }
 
 mat-sidenav-content {
   width: 100%;
-  background: whitesmoke;
+  min-height: calc(100vh - 65px) !important;
+  // min-height: calc(200vh - 131px);
+  // position: relative;
+  //background: whitesmoke;
 
   // padding: 20px; /* Opcional para darle un margen al contenido */
 }
@@ -22,7 +29,8 @@ mat-sidenav-content {
 .content {
   margin: 20px;
 }
-  .txt-bold {font-weight: bold;}
+
+.txt-bold {font-weight: bold;}
 .selected {background-color: #b1d5ff;
 }
 
@@ -35,3 +43,33 @@ mat-toolbar {
 .bg-azure-button {
   background: #aae0ff;
 }
+
+.pc-header {
+  height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 250px;
+    padding: 16px 10px 16px 24px;
+}
+
+.menu-button-icon {
+  border-radius: 10px;
+  background-color: #bdccff;
+}
+
+.nav-button-option {
+  border-radius: 10px !important;
+
+}
+
+.icon-text {
+  display: flex;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 22pt;
+  color: #4e4e4e;
+}
+
