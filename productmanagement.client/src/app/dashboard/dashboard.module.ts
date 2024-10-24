@@ -9,6 +9,7 @@ import { UsersComponent } from './users/users.component';
 import { authGuard } from '../guards/auth.guard';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 
+
 import { AddProductComponent } from './products/add-product/add-product.component';
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
     ProductsComponent,
     EditProductComponent,
     UsersComponent,
-    AddProductComponent
+    AddProductComponent,
+    
   ],
   imports: [
     CommonModule,

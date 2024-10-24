@@ -3,6 +3,10 @@
   display: flex;
 }
 
+.spacer {
+  flex: 1 1 auto;
+}
+
 mat-sidenav {
   
   width: 250px; /* Cambia el ancho según sea necesario */
@@ -27,4 +31,7 @@ mat-toolbar {
   top: 0;
   z-index: 1000;
   height: 64px; /* Asegura que la barra tenga un buen tamaño */
+}
+.bg-azure-button {
+  background: #aae0ff;
 }

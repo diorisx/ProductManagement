@@ -4,7 +4,6 @@ import { ProductsService } from '../../services/products.service';
 export interface ProductModel {
   id: number;
   name: string;
-  // description: string; // Cambiado a string
   price: number;
   // stock: number;
 }
@@ -22,16 +21,14 @@ export class ProductsComponent {
   constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
-    this.GetProduct();
+    this.GetProducts();
   }
 
-  // Get single product
-  public GetProduct() {
+  // Get all product
+  public GetProducts() {
     this.productService.getProducts().subscribe({
       next: (res) => {
-        // En lugar de usar push, puedes asignar directamente si obtienes un solo producto
-        this.productList = [res]; // Asignar como un nuevo array
-        //console.log(this.productList);
+        // this.productList = [res]; // Asignar como un nuevo array
         this.productList = res;
       },
       error: (error) => {

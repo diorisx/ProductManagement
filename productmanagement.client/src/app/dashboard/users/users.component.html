@@ -1,1 +1,56 @@
-<p>users works!</p>
+<mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> <button mat-button routerLink="/dashboard/add-product">Add new user</button> </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+  
+  <!--     <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Product name">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field> -->
+  
+  
+  <mat-table #table [dataSource]="userList" matSort>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+      </ng-container>
+  
+      <!-- Price Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+  
+      <!-- Price Stock -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.role | uppercase}} </mat-cell>
+      </ng-container>
+  
+  
+      <!-- Action Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+            color="primary" routerLink="/dashboard/edit-product">
+            <mat-icon>edit</mat-icon>
+          </button> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+            color="warn">
+            <mat-icon>delete</mat-icon>
+          </button> </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  
+  </mat-card-content>
+  </mat-card>
