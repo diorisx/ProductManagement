@@ -1,6 +1,4 @@
 <mat-card appearance="outlined">
-
-  
   <mat-card-header>
     <mat-card-title>
       <button class="mb-2" mat-button routerLink="/dashboard/add-user">
@@ -9,18 +7,15 @@
       </button>
     </mat-card-title>
   </mat-card-header>
-  
+
   <mat-card-content>
     <div class="form-group mb-0 d-flex align-items-center">
       <i class="ti ti-search"></i>
-      <input type="search" [(ngModel)]="search" (input)="getByName()" class="form-control border-sm shadow-3 mb-4 custom-table-input" placeholder="Search here..." />
+      <input type="search" [(ngModel)]="search" (input)="getByName()"
+        class="form-control border-sm shadow-3 mb-4 custom-table-input" placeholder="Search user..." />
     </div>
 
     @if (userList.length && !isLoading) {
-
-
-
-
 
     <mat-table #table [dataSource]="userList" matSort>
       <!-- Name Column -->
@@ -53,9 +48,10 @@
           Edit
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-         
-          <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" matTooltip="edit/delete User" aria-label="option button">
-            <mat-icon>edit</mat-icon> 
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" matTooltip="edit/delete User"
+            aria-label="option button">
+            <mat-icon>edit</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="editUser(element.id)">
@@ -66,7 +62,7 @@
               <mat-icon color="warn">delete_forever</mat-icon>
               <span>Delete</span>
             </button>
-           
+
           </mat-menu>
 
 
@@ -86,15 +82,19 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-  } @else if (isLoading) {
-  
+
+    <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5,10,15]"
+      (page)="onPageChange($event)" showFirstLastButtons>
+    </mat-paginator>
+    } @else if (isLoading) {
+
     <div class="span12 text-center mb-2 mt-2">
       <span class="spinner-border" role="status"></span>
     </div>
-  } @else {
+    } @else {
     <p class="text-center m-2">No data</p>
-  
-  }
+
+    }
 
   </mat-card-content>
 

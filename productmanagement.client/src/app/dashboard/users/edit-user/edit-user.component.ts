@@ -5,9 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserModel } from '../../../core/models/user.model';
 
-
-
-
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',

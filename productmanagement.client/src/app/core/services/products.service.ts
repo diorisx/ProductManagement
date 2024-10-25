@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -15,8 +15,14 @@ export class ProductsService {
    * Get all Products
    * @returns 
    */
-  getProducts(query?:string): Observable<any> {
-    return this.http.get(this.API_URL + '/Products?'+ query );
+  getProducts({query="",pageNumber=1,pageSize=10} 
+    : {query?:string, pageNumber?:number, pageSize?:number}): Observable<any> {
+      const params = new HttpParams()
+      .set('search',query)
+      .set('pageNumber',pageNumber)
+      .set('pageSize',pageSize)
+      // console.log(params)
+    return this.http.get(this.API_URL + '/Products',{params} );
   }
   
   /**

@@ -1,46 +1,46 @@
 <mat-card appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>
-        Edit User
-        </mat-card-title>
-    </mat-card-header>
+  <mat-card-header>
+    <mat-card-title>
+      Edit User
+    </mat-card-title>
+  </mat-card-header>
 
-    <mat-card-content style="padding: 20px;">
+  <mat-card-content style="padding: 20px;">
 
-            <mat-form-field  appearance="outline" class="form-input m-2">
-                <mat-label>Username</mat-label>
-                <input [disabled]="isLoading" matInput [(ngModel)]="user.username" placeholder="Username">
-                <mat-icon matSuffix>user</mat-icon>
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline" class="form-input m-2">
-                <mat-label>Email</mat-label>
-                <input matInput [disabled]="isLoading" [(ngModel)]="user.email" placeholder="Email">
-                <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
+    <mat-form-field appearance="outline" class="form-input m-2">
+      <mat-label>Username</mat-label>
+      <input [disabled]="isLoading" matInput [(ngModel)]="user.username" placeholder="Username">
+      <mat-icon matSuffix>user</mat-icon>
+    </mat-form-field>
 
-            <mat-form-field appearance="outline" class="form-input m-2">
-              <mat-label>Password</mat-label>
-              <input matInput [disabled]="isLoading" minlength="6" [(ngModel)]="user.password" placeholder="Password" type="password">
-              <mat-icon matSuffix>password</mat-icon>
-          </mat-form-field>
-            
-            <mat-form-field class="form-input m-2">
-                <mat-label>Role</mat-label>
-                <mat-select [(value)]="user.role" [disabled]="isLoading" >
-                  @for (role of roles; track role) {
-                    <mat-option [value]="role.value">{{role.viewValue}}</mat-option>
-                  }
-                </mat-select>
-        </mat-form-field>
-            
-            
-        </mat-card-content>
-        
-        <mat-card-actions align="end">
-            <button [disabled]="isLoading" mat-button routerLink="/dashboard/users">Back</button> 
-            <button [disabled]="isLoading" type="submit" (click)="editUser()" matTooltip="save all changes" mat-button>Apply changes 
-                <mat-icon>edit</mat-icon>
-            </button> 
-        </mat-card-actions>
+    <mat-form-field appearance="outline" class="form-input m-2">
+      <mat-label>Email</mat-label>
+      <input matInput [disabled]="isLoading" [(ngModel)]="user.email" placeholder="Email">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-input m-2">
+      <mat-label>Password</mat-label>
+      <input matInput [disabled]="isLoading" minlength="6" [(ngModel)]="user.password" placeholder="Password"
+        type="password">
+      <mat-icon matSuffix>password</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="form-input m-2">
+      <mat-label>Role</mat-label>
+      <mat-select [(value)]="user.role" [disabled]="isLoading">
+        @for (role of roles; track role) {
+        <mat-option [value]="role.value">{{role.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button [disabled]="isLoading" mat-button routerLink="/dashboard/users">Back</button>
+    <button [disabled]="isLoading" type="submit" (click)="editUser()" matTooltip="save all changes" mat-button>Apply
+      changes
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>

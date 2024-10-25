@@ -16,6 +16,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 
 @NgModule({
@@ -30,7 +32,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,MatInputModule,
     FormsModule,MatSnackBarModule,
     MatTooltipModule,MatMenuModule,MatSelectModule,
-    MatDialogModule
+    MatDialogModule,MatPaginatorModule
     
   ], 
   exports: [
@@ -42,7 +44,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,MatInputModule,
     FormsModule,MatSnackBarModule,
     MatTooltipModule,MatMenuModule,MatSelectModule,
-    MatDialogModule
+    MatDialogModule,MatPaginatorModule
   ]
 })
 export class AppMaterialModule { }

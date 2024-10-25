@@ -27,26 +27,39 @@ namespace ProductManagement.Server.Controllers
         // GET: api/Users
         // get all users, only admin
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetUsers>>> GetUsers([FromQuery] string? username = null)
+        public async Task<ActionResult<IEnumerable<GetUsers>>> GetUsers(
+             [FromQuery] string? username = null,
+             [FromQuery] int pageNumber = 1,
+             [FromQuery] int pageSize = 10)
         {
             IQueryable<User> query = _context.Users;
-
+           
             if (!string.IsNullOrWhiteSpace(username))
             {
                 string searchFormat = username.ToLower();
                 query = query.Where(user => user.Username.ToLower().Contains(searchFormat));
             }
 
-            var users = await query.Select(user => new GetUsers
+            int totalItems = await query.CountAsync();
+            var users = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var response = new
             {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Role = user.Role,
-            }).ToListAsync();
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
+                Users = users.Select(user => new GetUsers
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Role = user.Role,
+                }).ToList()
+            };
 
-            return Ok(users);
+            return Ok(response);
         }
+
 
 
         // GET: api/Users/5

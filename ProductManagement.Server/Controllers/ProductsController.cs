@@ -26,9 +26,11 @@ namespace ProductManagement.Server.Controllers
         // GET: api/Products
         //[Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] string? search = null)
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] string? search = null,
+             [FromQuery] int pageNumber = 1,
+             [FromQuery] int pageSize = 10)
         {
-            
+               
             IQueryable<Product> query = _context.Products;
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -36,7 +38,18 @@ namespace ProductManagement.Server.Controllers
                 query = query.Where( p => p.Name.ToLower().Contains(searchFormat));
 
             }
-            return await query.ToListAsync();
+            int totalItems = await query.CountAsync();
+            var products = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var response = new
+            {
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
+                Products = products
+            };
+             return Ok(response); 
+            //return await query.ToListAsync();
         }
 
 

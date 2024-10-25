@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -14,11 +14,16 @@ export class UsersService {
   constructor(private http:HttpClient) { }
 
   /**
-   * get all users
+   * get all users, filter
    * 
    */
-   getUsers(query?:string):Observable<any> {
-    return this.http.get(this.API_URL+"/Users?"+query);
+   getUsers({query="",pageNumber=1,pageSize=10} 
+    : {query?:string, pageNumber?:number, pageSize?:number}): Observable<any> {
+      const params = new HttpParams()
+      .set('username',query)
+      .set('pageNumber',pageNumber)
+      .set('pageSize',pageSize)
+    return this.http.get(this.API_URL+"/Users",{params});
   }
 
   /**
@@ -48,6 +53,11 @@ export class UsersService {
     return this.http.post(this.API_URL+"/Users/",user);
   }
   
+  /**
+   * delete an user
+   * @param id 
+   * @returns 
+   */
   deleteUser(id:number){
     return this.http.delete(this.API_URL+"/Users/"+id);
   }
