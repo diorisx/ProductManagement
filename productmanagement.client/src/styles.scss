@@ -32,10 +32,7 @@
 // @import 'scss/settings/bootstrap-variables.scss';
 
 
-@font-face {
-  font-family: 'berry';
-  src: url('scss/fonts/berry/fonts/pct.woff');
-}
+
 $border-gray: #8080804d;
 
 .custom-nav-content {
@@ -50,7 +47,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'berry', sans-serif;
+    // font-family: 'berry', sans-serif;
   }
 
 
@@ -82,9 +79,11 @@ html, body {
 .selected {background-color: gainsboro;}
 
 
-mat-toolbar {
- // border-bottom: solid 2px #8080804d;
-}
+/* mat-toolbar {
+ border-bottom: solid 2px #8080804d;
+} */
+
+
 mat-sidenav {
   //border-right: solid 2px $border-gray !important;
   padding: 5px 20px;
