@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private API_URL = "https://localhost:7033/api/Auth/";
+  private API_URL = environment.apiURL;
   constructor(private http:HttpClient, private router:Router) { }
   
   // login
    login(email:string, password:string):Observable<any> {
-    return this.http.post(this.API_URL+"Authenticate",{email,password});
+    return this.http.post(this.API_URL+"/Auth/Authenticate",{email,password});
   }
 
   logout(){
@@ -22,7 +23,7 @@ export class AuthService {
   }
 
   refreshToken(){
-    return this.http.get(this.API_URL+"RefreshToken");
+    return this.http.get(this.API_URL+"/Auth/RefreshToken");
   }
 
   // set JWT

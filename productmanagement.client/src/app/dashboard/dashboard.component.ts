@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -9,4 +10,10 @@ import { Component, ViewChild } from '@angular/core';
 export class DashboardComponent {
 
   showFiller = false;
+  constructor(private authService:AuthService){}
+
+
+  Logout(){
+    this.authService.logout();
+  }
 }

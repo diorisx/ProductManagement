@@ -22,7 +22,7 @@ export class EditProductComponent {
   isLoading: boolean = false;
   product: ProductModel = {};
   productId: Observable<number | undefined>;
-
+ 
   // productId:number | any;
 
   constructor(private productService: ProductsService) {

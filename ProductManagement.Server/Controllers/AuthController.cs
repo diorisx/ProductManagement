@@ -104,11 +104,12 @@ namespace ProductManagement.Server.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new []{ 
+            var claims = new List<Claim>{ 
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("Id", user.Id.ToString()),
-                new Claim("Role", user.Role)
+                //new Claim("Roles",user.Role),
+                new Claim(ClaimTypes.Role, user.Role,ClaimValueTypes.String)
             };
 
             var SecToken = new JwtSecurityToken(

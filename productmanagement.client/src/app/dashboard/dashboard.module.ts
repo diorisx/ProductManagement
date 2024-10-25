@@ -11,6 +11,8 @@ import { AppMaterialModule } from '../shared/app-material/app-material.module';
 
 
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,8 @@ const routes: Routes = [
       { path: 'edit-product/:id', component: EditProductComponent },
       { path: 'add-product', component: AddProductComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'edit-user/:id', component: EditUserComponent },
+      { path: 'add-user', component: AddUserComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }

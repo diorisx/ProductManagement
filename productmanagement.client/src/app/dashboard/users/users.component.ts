@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { UsersService } from '../../services/users.service';
+import { finalize } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface UserModel {
   id: number;
   username: string;
   email: number;
   role: number;
-  // stock: number;
 }
 
 @Component({
@@ -15,27 +16,32 @@ export interface UserModel {
   styleUrl: './users.component.scss'
 })
 export class UsersComponent {
-
-  displayedColumns: string[] = ['username','email', 'role','edit']; // Asegúrate de que el orden aquí coincide con tu HTML
+  isLoading: boolean = false;
+  displayedColumns: string[] = ['username','email', 'role','edit','view']; // Asegúrate de que el orden aquí coincide con tu HTML
   userList: UserModel[] = [];
 
 
-  constructor(private userService:UsersService){}
+  constructor(private userService:UsersService, private router:Router){}
 
   ngOnInit(): void {
     this.GetUsers();
   }
 
-  public GetUsers() {
-    this.userService.getUsers().subscribe({
+  GetUsers() {
+    this.isLoading = true;
+    this.userService.getUsers().pipe(finalize(()=> this.isLoading = false)).subscribe({
       next: (res) => {
-        // this.userList = [res]; // Asignar como un nuevo array
         this.userList = res;
       },
       error: (error) => {
-        console.log("Error getting product:", error);
+        //console.log("Error getting product:", error);
       }
     });
   }
+editUser(id:number){
+  this.router.navigate(["/dashboard/edit-user/"+id]);
+
+}
+
 
 }

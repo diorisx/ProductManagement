@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface ProductModel {
   id?:number;
@@ -14,7 +15,7 @@ export interface ProductModel {
   providedIn: 'root',
 })
 export class ProductsService {
-  private API_URL = 'https://localhost:7033/api/Products';
+  private API_URL = environment.apiURL;
   constructor(private http: HttpClient) {}
 
   /**
@@ -22,7 +23,7 @@ export class ProductsService {
    * @returns 
    */
   getProducts(): Observable<any> {
-    return this.http.get(this.API_URL + '/');
+    return this.http.get(this.API_URL + '/Products/');
   }
   
   /**
@@ -30,7 +31,7 @@ export class ProductsService {
    * @param id 
    */
   getProduct(id:number): Observable<any>{
-    return this.http.get(this.API_URL + '/'+id);
+    return this.http.get(this.API_URL + '/Products/'+id);
   }
 
   /**
@@ -39,7 +40,7 @@ export class ProductsService {
    * @returns 
    */
   addProduct(product: ProductModel): Observable<any> {
-    return this.http.post(this.API_URL + '/', product);
+    return this.http.post(this.API_URL + '/Products/', product);
   }
 
 
@@ -48,6 +49,6 @@ export class ProductsService {
    * @param id  - Product Id
    */
   editProduct(product: ProductModel): Observable<any> {
-    return this.http.put(this.API_URL+"/"+product.id,product);
+    return this.http.put(this.API_URL+"/Products/"+product.id,product);
   }
 }

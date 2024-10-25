@@ -22,6 +22,8 @@ import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { EditProductComponent } from './dashboard/products/edit-product/edit-product.component';
 import { AddProductComponent } from './dashboard/products/add-product/add-product.component';
+import { EditUserComponent } from './dashboard/users/edit-user/edit-user.component';
+import { AddUserComponent } from './dashboard/users/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AddProductComponent } from './dashboard/products/add-product/add-produc
     //ProductsComponent,
     //TestComponent,
     NavbarComponent,
+    EditUserComponent,
+    AddUserComponent,
     //EditProductComponent,
     //AddProductComponent
   ],
