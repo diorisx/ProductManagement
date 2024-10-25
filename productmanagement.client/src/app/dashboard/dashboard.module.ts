@@ -20,7 +20,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
-      { path: 'edit-product', component: EditProductComponent },
+      { path: 'edit-product/:id', component: EditProductComponent },
       { path: 'add-product', component: AddProductComponent },
       { path: 'users', component: UsersComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }

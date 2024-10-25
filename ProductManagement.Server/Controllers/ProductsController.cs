@@ -43,10 +43,11 @@ namespace ProductManagement.Server.Controllers
                 return NotFound();
             }
 
-            return product;
+            return Ok(product);
         }
 
         // PUT: api/Products/5
+        // EDIT a Product
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
@@ -80,12 +81,20 @@ namespace ProductManagement.Server.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Product>> PostProduct(AddProduct addProduct)
         {
+            var product = new Product{
+                Name = addProduct.Name,
+                Description = addProduct.Description,
+                Price = addProduct.Price,
+                stock = addProduct.Stock
+            };
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return Created();
+            //return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
         // DELETE: api/Products/5

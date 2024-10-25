@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +10,20 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
+  private _snackBar = inject(MatSnackBar);
+  
   public email:string = "";
   public password:string = "";
+  public isLoading = false;
 
   constructor(private authService: AuthService, private router:Router){}
   
   public Authenticate(){
-    this.authService.login(this.email,this.password).subscribe({
+    this.isLoading = true;
+
+    this.authService.login(this.email,this.password).pipe(
+      finalize(()=> this.isLoading = false )
+    ).subscribe({
       next: (response)=>{
         const token = response.token;
         this.authService.saveToken(response.token);
@@ -24,9 +32,10 @@ export class LoginComponent {
       },
       error: (error)=>{
         console.log('Error on logging: ', error);
-      }
-    }); 
-    //console.log(`Login Result:  ${this.email}, ${this.password}`);
+        this._snackBar.open(error.error,"Ok",{duration:2000})
+      },  
+      
+    });
   }
 
 
