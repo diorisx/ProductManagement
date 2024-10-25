@@ -18,6 +18,7 @@ export class ProductsComponent {
   readonly displayedColumns: string[] = ['name', 'price', 'stock', 'edit'];
   readonly _snackBar = inject(MatSnackBar);
   readonly dialog = inject(MatDialog);
+  search:string = "";
 
   productList: ProductModel[] = [];
   isLoading: boolean = false;
@@ -35,7 +36,21 @@ export class ProductsComponent {
     this.router.navigate(['/dashboard/edit-product/' + id]);
   }
 
-
+  getByName(){
+    this.isLoading = true;
+    this.productService
+    .getProducts("search="+this.search)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
+      next: (res) => {
+        this.productList = res;
+      },
+      error: (error) => {
+        console.log('Error getting the products:', error);
+      },
+    });
+    
+  }
 
   getProducts() {
     this.isLoading = true;

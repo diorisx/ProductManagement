@@ -1,6 +1,6 @@
 ﻿namespace ProductManagement.Server.Models
 {
-    public class UsersResponse
+    public class GetUsers
     {
         public int Id { get; set; }
         public string Username { get; set; }

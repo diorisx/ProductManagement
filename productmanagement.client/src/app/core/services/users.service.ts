@@ -17,8 +17,8 @@ export class UsersService {
    * get all users
    * 
    */
-   getUsers():Observable<any> {
-    return this.http.get(`${this.API_URL}/Users/`);
+   getUsers(query?:string):Observable<any> {
+    return this.http.get(this.API_URL+"/Users?"+query);
   }
 
   /**

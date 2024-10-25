@@ -15,8 +15,8 @@ export class ProductsService {
    * Get all Products
    * @returns 
    */
-  getProducts(): Observable<any> {
-    return this.http.get(this.API_URL + '/Products/');
+  getProducts(query?:string): Observable<any> {
+    return this.http.get(this.API_URL + '/Products?'+ query );
   }
   
   /**

@@ -26,10 +26,19 @@ namespace ProductManagement.Server.Controllers
         // GET: api/Products
         //[Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] string? search = null)
         {
-            return await _context.Products.ToListAsync();
+            
+            IQueryable<Product> query = _context.Products;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                string searchFormat = search.ToLower();
+                query = query.Where( p => p.Name.ToLower().Contains(searchFormat));
+
+            }
+            return await query.ToListAsync();
         }
+
 
         // GET: api/Products/5
 

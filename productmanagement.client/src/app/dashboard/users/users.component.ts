@@ -16,10 +16,11 @@ import { DialogComponent } from '../../layout/dialog/dialog.component';
 export class UsersComponent {
   readonly _snackBar = inject(MatSnackBar);
   readonly dialog = inject(MatDialog);
-
   readonly displayedColumns: string[] = ['username', 'email', 'role', 'edit', 'view']; // Asegúrate de que el orden aquí coincide con tu HTML
+
   isLoading: boolean = false;
   userList: UserModel[] = [];
+  search:string = "";
 
 
   constructor(private userService: UsersService, private router: Router) { }
@@ -43,6 +44,23 @@ export class UsersComponent {
     this.router.navigate(["/dashboard/edit-user/" + id]);
 
   }
+
+  getByName(){
+    this.isLoading = true;
+    this.userService
+    .getUsers("username="+this.search)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
+      next: (res) => {
+        this.userList = res;
+      },
+      error: (error) => {
+        console.log('Error getting the users:', error);
+      },
+    });
+    
+  }
+
 
   deleteUser(id:number){
     this.dialog.open(DialogComponent,{

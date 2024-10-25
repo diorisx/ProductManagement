@@ -12,7 +12,7 @@ using ProductManagement.Server.Models;
 
 namespace ProductManagement.Server.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -27,19 +27,27 @@ namespace ProductManagement.Server.Controllers
         // GET: api/Users
         // get all users, only admin
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<GetUsers>>> GetUsers([FromQuery] string? username = null)
         {
-            var users = await _context.Users.Select(user => new UsersResponse
+            IQueryable<User> query = _context.Users;
+
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                string searchFormat = username.ToLower();
+                query = query.Where(user => user.Username.ToLower().Contains(searchFormat));
+            }
+
+            var users = await query.Select(user => new GetUsers
             {
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
                 Role = user.Role,
-
             }).ToListAsync();
+
             return Ok(users);
-            //return await _context.Users.ToListAsync();
         }
+
 
         // GET: api/Users/5
         [HttpGet("{id}")]
