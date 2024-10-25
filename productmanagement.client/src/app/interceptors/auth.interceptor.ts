@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError, BehaviorSubject, of } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

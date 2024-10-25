@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
+import { Component, inject } from '@angular/core';
+import { ProductsService } from '../../core/services/products.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { ProductModel } from '../../core/models/product.models';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../layout/dialog/dialog.component';
 
-export interface ProductModel {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-}
+
 
 @Component({
   selector: 'app-products',
@@ -16,7 +15,10 @@ export interface ProductModel {
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent {
-  displayedColumns: string[] = ['name', 'price', 'stock', 'edit'];
+  readonly displayedColumns: string[] = ['name', 'price', 'stock', 'edit'];
+  readonly _snackBar = inject(MatSnackBar);
+  readonly dialog = inject(MatDialog);
+
   productList: ProductModel[] = [];
   isLoading: boolean = false;
 
@@ -26,27 +28,50 @@ export class ProductsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.GetProducts();
+    this.getProducts();
   }
 
   editProduct(id: number) {
     this.router.navigate(['/dashboard/edit-product/' + id]);
   }
 
-  // Get all product
-  GetProducts() {
+
+
+  getProducts() {
     this.isLoading = true;
     this.productService
       .getProducts()
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (res) => {
-          // this.productList = [res]; // Asignar como un nuevo array
           this.productList = res;
         },
         error: (error) => {
-          console.log('Error getting product:', error);
+          console.log('Error getting the products:', error);
         },
       });
   }
+
+  deleteProduct(id:number){
+    this.dialog.open(DialogComponent,{
+      data:{message: "This product will be deleted permanently"}}).afterClosed().subscribe(result => {
+        if(result){
+          this.isLoading = true;
+          this.productService
+            .deleteProduct(id)
+            .pipe(finalize(() => (this.isLoading = false)))
+            .subscribe({
+              next: (res) => {
+                this.getProducts();
+                this._snackBar.open("Product deleted","",{duration:3000});
+              },
+              error: (error) => {
+                console.log('Error deleting the product:', error);
+              },
+            });
+        }
+      });
+
+  }
+
 }

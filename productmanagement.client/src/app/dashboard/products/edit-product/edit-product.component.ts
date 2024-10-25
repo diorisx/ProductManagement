@@ -1,21 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, map, Observable } from 'rxjs';
-import { ProductsService } from '../../../services/products.service';
+import { ProductsService } from '../../../core/services/products.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface ProductModel {
-  name?: string;
-  description?: string;
-  price?: number;
-  stock?: number;
-}
+import { ProductModel } from '../../../core/models/product.models';
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss',
 })
+
 export class EditProductComponent {
   private route = inject(ActivatedRoute);
   private _snackBar = inject(MatSnackBar);

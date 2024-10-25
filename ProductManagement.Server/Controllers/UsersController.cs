@@ -12,7 +12,7 @@ using ProductManagement.Server.Models;
 
 namespace ProductManagement.Server.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -26,7 +26,6 @@ namespace ProductManagement.Server.Controllers
 
         // GET: api/Users
         // get all users, only admin
-        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -52,19 +51,42 @@ namespace ProductManagement.Server.Controllers
             {
                 return NotFound();
             }
+            var getUser = new GetUser { 
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            };
 
-            return user;
+            return Ok(getUser);
         }
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id,[FromBody] EditUser editUser)
         {
-            if (id != user.Id)
+
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.Username = editUser.Username;
+            user.Email = editUser.Email;
+            user.Role = editUser.Role;
+            
+            if (!string.IsNullOrWhiteSpace(editUser.Password))
+            {
+                user.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(editUser.Password);
+            }
+
+           
+            /*if (id != user.Id)
             {
                 return BadRequest();
-            }
+            }*/
 
             _context.Entry(user).State = EntityState.Modified;
 
@@ -83,19 +105,39 @@ namespace ProductManagement.Server.Controllers
                     throw;
                 }
             }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("duplicate key"))
+                {
+                    return Conflict("username or email already exists");
+                }
+                else
+                {
+                    throw; // Lanza la excepción si no es un problema de unicidad
+                }
+            }
 
             return NoContent();
         }
 
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser([FromBody] CreateUser createUser)
         {
-            _context.Users.Add(user);
+            var existsUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == createUser.Email || u.Username == createUser.Username);
+            if (existsUser != null)
+            {
+                return Conflict("email or username already exists" );
+            }
+            // Hash password
+            createUser.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(createUser.Password);
+
+            _context.Users.Add(new User { Username = createUser.Username, Email = createUser.Email, Password = createUser.Password });
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return Ok(new { message = "Success. user registered" });
         }
 
         // DELETE: api/Users/5

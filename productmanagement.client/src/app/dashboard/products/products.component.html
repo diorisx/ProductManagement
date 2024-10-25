@@ -12,7 +12,7 @@
   <mat-card-content>
     <div class="form-group mb-0 d-flex align-items-center">
       <i class="ti ti-search"></i>
-      <input type="search" class="form-control border-sm shadow-3 mb-4" placeholder="Search here..." />
+      <input type="search" class="form-control border-sm shadow-3 mb-4 custom-table-input" placeholder="Search here..." />
     </div>
 
     <mat-table #table [dataSource]="productList" matSort>
@@ -46,10 +46,27 @@
           Edit
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="editProduct(element.id)" matTooltip="Click to Edit" class="iconbutton"
-            color="primary">
-            <mat-icon>edit</mat-icon>
-          </button>
+          <!-- <button mat-icon-button  matTooltip="Click to Edit" class="iconbutton" 
+          color="primary">
+           -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" matTooltip="edit/delete Item" aria-label="option button">
+          
+              <mat-icon>edit</mat-icon> 
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editProduct(element.id)">
+                <mat-icon color="primary">edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="deleteProduct(element.id)">
+                <mat-icon color="warn">delete_forever</mat-icon>
+                <span>Delete</span>
+              </button>
+             
+            </mat-menu>
+
+            <!-- <mat-icon>edit</mat-icon> -->
+          <!-- </button> -->
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete">

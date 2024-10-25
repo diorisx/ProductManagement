@@ -1,14 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { UsersService } from '../../../services/users.service';
+import { finalize, map, Observable } from 'rxjs';
+import { UsersService } from '../../../core/services/users.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserModel } from '../../../core/models/user.model';
 
-export interface UserModel {
-  id?: number;
-  username?: string;
-  email?: number;
-  role?: number;
-}
+
 
 
 @Component({
@@ -18,6 +15,8 @@ export interface UserModel {
 })
 export class EditUserComponent {
   private route = inject(ActivatedRoute);
+  private _snackBar = inject(MatSnackBar);
+
   isLoading: boolean = false;
   user: UserModel = {};
   userId: Observable<number | undefined>;
@@ -34,16 +33,45 @@ export class EditUserComponent {
 
 
   ngOnInit(): void {
+    this.userId.subscribe((id) => {
+      if (id != undefined) {
+        this.getUser(id);
+        return;
+      }
+    });
   
     
   }  
 
   getUser(id:number){
-
+    this.userService.getUser(id).subscribe({
+      next: (res: UserModel) => {
+        this.user = res;
+      },
+      error: (err) => {
+        this._snackBar.open('Error something went wrong', '', {
+          duration: 2000,
+        });
+      },
+    });
   }
 
   editUser(){
-
+    this.isLoading = true;
+    this.userService
+      .editUser(this.user)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (res) => {
+          this._snackBar.open('User updated', '', { duration: 2000 });
+        },
+        error: (error) => {
+          // console.log(error);
+          this._snackBar.open(error.error, '', {
+            duration: 2000,
+          });
+        },
+      });
   }
 
 

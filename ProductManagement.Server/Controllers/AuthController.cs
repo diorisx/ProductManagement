@@ -42,7 +42,7 @@ namespace ProductManagement.Server.Controllers
         // Create Account
    
 
-
+        /*
         [HttpPost("Signup")]
         public async Task<ActionResult<User>> Signup([FromBody] SignupRequest signupRequest)
         {
@@ -57,7 +57,7 @@ namespace ProductManagement.Server.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new {message = "Success. user registered"});
-        }
+        }*/
 
 
         // POST: api/Users/LoginUser

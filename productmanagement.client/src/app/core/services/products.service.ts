@@ -1,15 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-
-export interface ProductModel {
-  id?:number;
-  name?: string;
-  description?: string;
-  price?: number;
-  stock?: number;
-}
+import { environment } from '../../../environments/environment';
+import { ProductModel } from '../models/product.models';
 
 @Injectable({
   providedIn: 'root',
@@ -51,4 +44,14 @@ export class ProductsService {
   editProduct(product: ProductModel): Observable<any> {
     return this.http.put(this.API_URL+"/Products/"+product.id,product);
   }
+  
+  /**
+   * Delete a product
+   * @param id 
+   * @returns 
+   */
+  deleteProduct(id:number){
+    return this.http.delete(this.API_URL+"/Products/"+id);
+  }
+
 }

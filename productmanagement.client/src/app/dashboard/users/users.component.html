@@ -3,7 +3,7 @@
 
   <mat-card-header>
     <mat-card-title>
-      <button class="mb-2" mat-button routerLink="/dashboard/add-product">
+      <button class="mb-2" mat-button routerLink="/dashboard/add-user">
         <mat-icon>add</mat-icon>
         Add new user
       </button>
@@ -12,7 +12,7 @@
   <mat-card-content>
     <div class="form-group mb-0 d-flex align-items-center">
       <i class="ti ti-search"></i>
-      <input type="search" class="form-control border-sm shadow-3 mb-4" placeholder="Search here..." />
+      <input type="search" class="form-control border-sm shadow-3 mb-4 custom-table-input" placeholder="Search here..." />
     </div>
 
     <mat-table #table [dataSource]="userList" matSort>
@@ -46,10 +46,23 @@
           Edit
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="editUser(element.id)" matTooltip="Click to Edit" class="iconbutton"
-            color="primary">
-            <mat-icon>edit</mat-icon>
+         
+          <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" matTooltip="edit/delete User" aria-label="option button">
+            <mat-icon>edit</mat-icon> 
           </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editUser(element.id)">
+              <mat-icon color="primary">edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteUser(element.id)">
+              <mat-icon color="warn">delete_forever</mat-icon>
+              <span>Delete</span>
+            </button>
+           
+          </mat-menu>
+
+
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="view">
@@ -57,7 +70,7 @@
           View
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="azure">
+          <button mat-icon-button matTooltip="Show more" class="iconbutton" color="azure">
             <mat-icon>visibility</mat-icon>
           </button>
         </mat-cell>

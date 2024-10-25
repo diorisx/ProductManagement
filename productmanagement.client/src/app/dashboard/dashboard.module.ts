@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { EditProductComponent } from './products/edit-product/edit-product.component';
 import { UsersComponent } from './users/users.component';
-import { authGuard } from '../guards/auth.guard';
+import { authGuard } from '../core/guards/auth.guard';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 
 

@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './dashboard/home/home.component';
 import { UsersComponent } from './dashboard/users/users.component';
 import { ProductsComponent } from './dashboard/products/products.component';
-import { TestComponent } from './test/test.component';
+// import { TestComponent } from './test/test.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -24,6 +24,7 @@ import { EditProductComponent } from './dashboard/products/edit-product/edit-pro
 import { AddProductComponent } from './dashboard/products/add-product/add-product.component';
 import { EditUserComponent } from './dashboard/users/edit-user/edit-user.component';
 import { AddUserComponent } from './dashboard/users/add-user/add-user.component';
+import { DialogComponent } from './layout/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AddUserComponent } from './dashboard/users/add-user/add-user.component'
     NavbarComponent,
     EditUserComponent,
     AddUserComponent,
+    DialogComponent,
     //EditProductComponent,
     //AddProductComponent
   ],
