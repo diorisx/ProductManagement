@@ -3,7 +3,7 @@
       <h2>Login 👋</h2>
       <form (ngSubmit)="Authenticate()">
         <label for="email">Email</label>
-        <input type="email" id="email" [disabled]="isLoading" name="email" [(ngModel)]="email" placeholder="test@atheros.ai">
+        <input type="email" id="email" [disabled]="isLoading" name="email" [(ngModel)]="email" placeholder="username@email.com">
         <label for="password">Password</label>
         <input type="password" id="password" [disabled]="isLoading" [(ngModel)]="password" name="password" placeholder="******">
         <button [disabled]="isLoading" type="submit" class="btn btn-signin">

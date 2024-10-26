@@ -27,18 +27,21 @@
           Dashboard
         </span>
       </a>
+      
       <a mat-list-item routerLink="/dashboard/products" routerLinkActive="selected no-border txt-bold" class="nav-button-option">
         <span class="icon-text">
           <mat-icon>inventory_2</mat-icon>
           Inventory
         </span>
       </a>
+      @if (user?.role == "admin") {
       <a mat-list-item routerLink="/dashboard/users" routerLinkActive="selected no-border txt-bold" class="nav-button-option">
         <span class="icon-text">
           <mat-icon>supervisor_account</mat-icon>
             Users
           </span>
         </a>
+      }
     </mat-nav-list>
   </mat-sidenav>
 

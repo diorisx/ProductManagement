@@ -13,6 +13,7 @@ import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
+import { roleGuard } from '../core/guards/role.guard';
 
 const routes: Routes = [
   {
@@ -24,9 +25,9 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent },
       { path: 'edit-product/:id', component: EditProductComponent },
       { path: 'add-product', component: AddProductComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'edit-user/:id', component: EditUserComponent },
-      { path: 'add-user', component: AddUserComponent },
+      { path: 'users', component: UsersComponent, canActivate: [roleGuard] },
+      { path: 'edit-user/:id', component: EditUserComponent, canActivate: [roleGuard] },
+      { path: 'add-user', component: AddUserComponent, canActivate: [roleGuard] },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }

@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   private API_URL = environment.apiURL;
+  public userdata:any = {};
   constructor(private http:HttpClient, private router:Router) { }
   
     /**
