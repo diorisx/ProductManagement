@@ -1,12 +1,14 @@
-FROM node:20.11.1 as angular
+FROM node:latest AS build
 
-WORKDIR /app
-
-COPY . .
+WORKDIR /usr/local/app
+COPY ./ /usr/local/app/
 RUN npm install
 RUN npm run build
 
-FROM httpd:alpine3.15
 
-WORKDIR /usr/local/apache2/htdocs
-COPY --from=angular /app/dist/productmanagement.client .
+FROM nginx:latest
+COPY --from=build /usr/local/app/dist/productmanagement.client/browser /usr/share/nginx/html
+EXPOSE 80
+
+# docker build -t productmanagement.client .
+# docker run -p 4200:80 productmanagement.client

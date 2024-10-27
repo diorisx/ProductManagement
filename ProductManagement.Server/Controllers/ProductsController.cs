@@ -111,7 +111,6 @@ namespace ProductManagement.Server.Controllers
                 Price = addProduct.Price,
                 stock = addProduct.Stock
             };
-
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 

@@ -12,7 +12,7 @@ using ProductManagement.Server.Models;
 
 namespace ProductManagement.Server.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

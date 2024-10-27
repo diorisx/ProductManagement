@@ -36,28 +36,8 @@ namespace ProductManagement.Server.Controllers
         [HttpGet("GetUser")]
         public ActionResult<User> GetUser()
         {
-            return Ok("This is just a simple GET");
+            return Ok();
         }
-
-        // Create Account
-   
-
-        /*
-        [HttpPost("Signup")]
-        public async Task<ActionResult<User>> Signup([FromBody] SignupRequest signupRequest)
-        {
-            var existsUser = await _context.Users.FirstOrDefaultAsync( u => u.Email == signupRequest.Email || u.Username == signupRequest.Username);
-            if (existsUser != null) {
-                return Conflict(new {message = "email or username already exists"});
-            }
-            // Hash password
-            signupRequest.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(signupRequest.Password);
-            
-            _context.Users.Add(new User{ Username = signupRequest.Username, Email = signupRequest.Email, Password = signupRequest.Password });
-            await _context.SaveChangesAsync();
-
-            return Ok(new {message = "Success. user registered"});
-        }*/
 
 
         // POST: api/Users/LoginUser
@@ -82,6 +62,7 @@ namespace ProductManagement.Server.Controllers
             });
         }
 
+        // working..
         [Authorize]
         [HttpGet("RefreshToken")]
         public async Task<ActionResult> RefreshToken() {
@@ -96,7 +77,6 @@ namespace ProductManagement.Server.Controllers
             return Unauthorized();
 
         }
-
 
         // Generate Token 
         private string GenerateJWT(User user)

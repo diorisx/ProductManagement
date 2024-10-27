@@ -1,5 +1,15 @@
 # ProductmanagementClient
 
+
+# Docker command root folder
+>> docker build . it angularapp
+>> docker build -t app-name .
+>> docker build -t product-app
+>> docker images
+>> docker run -p 4200:80 angularapp
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
 
 ## Development server
